@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hard Challenge - BugBounty Arena</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            background: #222;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        .difficulty {
+            color: #d9534f;
+            font-weight: bold;
+        }
+
+        pre {
+            background: #f1f1f1;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+
+        textarea {
+            width: 100%;
+            height: 220px;
+            padding: 12px;
+            font-family: monospace;
+            font-size: 15px;
+            box-sizing: border-box;
+            margin-top: 10px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            background: #222;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #message {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="challenges.html">Challenges</a>
+    <a href="login.html">Login</a>
+    <a href="register.html">Register</a>
+</nav>
+
+<div class="container">
+
+    <p class="difficulty">Hard</p>
+
+    <h1>Debug the Algorithm</h1>
+
+    <p>
+        The program should find the largest number in an array.
+        Find the algorithm error and correct the code.
+    </p>
+
+    <pre>
+public class Main {
+
+    public static void main(String[] args) {
+
+        int[] numbers = {10, 25, 7, 42, 18};
+
+        int largest = 0;
+
+        for (int number : numbers) {
+
+            if (number &lt; largest) {
+                largest = number;
+            }
+        }
+
+        System.out.println("Largest: " + largest);
+
+    }
+}
+    </pre>
+
+    <h3>🏆 Reward: 30 Points</h3>
+
+    <label for="solution">
+        Enter your corrected code:
+    </label>
+
+    <textarea id="solution" placeholder="Enter your corrected code here"></textarea>
+
+    <button id="submitButton">Submit Solution</button>
+
+    <div id="message"></div>
+
+</div>
+
+<footer>
+    © 2026 BugBounty Arena | Error Detection &amp; Code Debugging Platform
+</footer>
+
+<script>
+
+document.getElementById("submitButton").addEventListener("click", function () {
+
+    const email = localStorage.getItem("loggedInUser");
+    const solution = document.getElementById("solution").value.trim();
+    const message = document.getElementById("message");
+
+    if (!email) {
+        message.textContent = "Please login before submitting a challenge.";
+        return;
+    }
+
+    if (!solution) {
+        message.textContent = "Please enter your corrected code.";
+        return;
+    }
+
+    if (!solution.includes("if (number > largest)")) {
+        message.textContent =
+            "❌ Incorrect. Check the comparison used to find the largest number.";
+        return;
+    }
+
+    fetch("/api/points/add?email=" + encodeURIComponent(email) + "&points=30", {
+        method: "POST"
+    })
+    .then(response => response.text())
+    .then(result => {
+
+        if (result === "Points added successfully") {
+            message.textContent =
+                "🎉 Correct! You fixed the algorithm error and earned 30 points.";
+        } else {
+            message.textContent =
+                "Correct solution, but points could not be saved: " + result;
+        }
+
+    })
+    .catch(error => {
+
+        console.error(error);
+
+        message.textContent =
+            "Correct solution, but there was a problem saving your points.";
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>
+

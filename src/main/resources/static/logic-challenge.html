@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logic Error - BugBounty Arena</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #222;
+        }
+
+        header {
+            background: #111827;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0 0 15px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 12px;
+            font-weight: bold;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .challenge {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+        }
+
+        .difficulty {
+            display: inline-block;
+            background: #f59e0b;
+            color: white;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        pre {
+            background: #111827;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            line-height: 1.5;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 300px;
+            box-sizing: border-box;
+            padding: 15px;
+            font-family: monospace;
+            font-size: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 13px 25px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        #message {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        footer {
+            margin-top: 50px;
+            padding: 20px;
+            text-align: center;
+            background: #111827;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <h1>🐛 BugBounty Arena</h1>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="challenges.html">Challenges</a>
+        <a href="login.html">Login</a>
+        <a href="register.html">Register</a>
+    </nav>
+
+</header>
+
+<main>
+
+    <div class="challenge">
+
+        <span class="difficulty">Medium</span>
+
+        <h2>Logic Error</h2>
+
+        <p>
+            The program should calculate the total price correctly.
+            Find the logical mistake and correct the code.
+        </p>
+
+        <pre>public class Main {
+
+    public static void main(String[] args) {
+
+        int price = 100;
+        int quantity = 3;
+
+        int total = price + quantity;
+
+        System.out.println("Total: " + total);
+
+    }
+}</pre>
+
+        <h3>🏆 Reward: 20 Points</h3>
+
+        <label for="solution">
+            <strong>Enter your corrected code:</strong>
+        </label>
+
+        <textarea id="solution" placeholder="Enter your corrected Java code here..."></textarea>
+
+        <br>
+
+        <button type="button" id="submitButton">
+            Submit Solution
+        </button>
+
+        <div id="message"></div>
+
+    </div>
+
+</main>
+
+<footer>
+    © 2026 BugBounty Arena | Error Detection & Code Debugging Platform
+</footer>
+
+<script>
+
+    document.getElementById("submitButton").addEventListener("click", function () {
+
+        const email = localStorage.getItem("loggedInUser");
+        const solution = document.getElementById("solution").value.trim();
+        const message = document.getElementById("message");
+
+        if (!email) {
+            message.textContent = "Please login before submitting a challenge.";
+            return;
+        }
+
+        if (!solution) {
+            message.textContent = "Please enter your corrected code.";
+            return;
+        }
+
+        if (!solution.includes("int total = price * quantity;")) {
+            message.textContent = "❌ Incorrect. Check how the total price is calculated.";
+            return;
+        }
+
+        fetch("/api/points/add?email=" + encodeURIComponent(email) + "&points=20", {
+            method: "POST"
+        })
+        .then(response => response.text())
+        .then(result => {
+
+            if (result === "Points added successfully") {
+                message.textContent =
+                    "🎉 Correct! You fixed the logic error and earned 20 points.";
+            } else {
+                message.textContent =
+                    "Correct solution, but points could not be saved: " + result;
+            }
+
+        })
+        .catch(error => {
+
+            console.error(error);
+
+            message.textContent =
+                "Correct solution, but there was a problem saving your points.";
+
+        });
+
+    });
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - BugBounty Arena</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        header {
+            background: #111827;
+            color: white;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+        }
+
+        .container {
+            min-height: 80vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .register-box {
+            background: white;
+            width: 100%;
+            max-width: 450px;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .register-box h1 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .register-box p {
+            text-align: center;
+            color: #6b7280;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            margin-bottom: 20px;
+            border: 1px solid #d1d5db;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        #message {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .login-link a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer {
+            background: #111827;
+            color: #d1d5db;
+            text-align: center;
+            padding: 25px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">🐛 BugBounty Arena</div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="login.html">Login</a>
+    </nav>
+</header>
+
+<div class="container">
+
+    <div class="register-box">
+
+        <h1>Create Account</h1>
+
+        <p>Join BugBounty Arena and start solving challenges.</p>
+
+        <form id="registerForm">
+
+            <label for="name">Full Name</label>
+            <input type="text" id="name" placeholder="Enter your full name" required>
+
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="Enter your email" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Create a password" required>
+
+            <button type="submit">Register</button>
+
+        </form>
+
+        <div id="message"></div>
+
+        <div class="login-link">
+            Already have an account?
+            <a href="login.html">Login</a>
+        </div>
+
+    </div>
+
+</div>
+
+<footer>
+    <p>© 2026 BugBounty Arena | Error Detection & Code Debugging Platform</p>
+</footer>
+
+<script>
+
+document.getElementById("registerForm").addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const message = document.getElementById("message");
+
+    try {
+
+        const response = await fetch("/api/register", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                name: name,
+                email: email,
+                password: password
+            })
+
+        });
+
+        const result = await response.text();
+
+        message.textContent = result;
+
+        if (result === "Registration successful") {
+            message.style.color = "green";
+
+            setTimeout(function() {
+                window.location.href = "login.html";
+            }, 1500);
+        } else {
+            message.style.color = "red";
+        }
+
+    } catch (error) {
+
+        message.textContent = "Something went wrong. Please try again.";
+        message.style.color = "red";
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>

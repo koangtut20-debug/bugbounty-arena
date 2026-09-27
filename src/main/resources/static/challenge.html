@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Syntax Bug - BugBounty Arena</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        header {
+            background: #111827;
+            color: white;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .challenge-box {
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .difficulty {
+            display: inline-block;
+            background: #dcfce7;
+            color: #15803d;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            margin-bottom: 15px;
+        }
+
+        .description {
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .code-box {
+            background: #111827;
+            color: #e5e7eb;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            overflow-x: auto;
+        }
+
+        pre {
+            font-family: monospace;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 180px;
+            padding: 15px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 14px;
+            resize: vertical;
+            margin-top: 10px;
+        }
+
+        button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 14px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        #message {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .points {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        footer {
+            background: #111827;
+            color: #d1d5db;
+            text-align: center;
+            padding: 25px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">🐛 BugBounty Arena</div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="challenges.html">Challenges</a>
+        <a href="login.html">Login</a>
+        <a href="register.html">Register</a>
+    </nav>
+
+</header>
+
+<div class="container">
+
+    <div class="challenge-box">
+
+        <span class="difficulty">Easy</span>
+
+        <h1>Java Syntax Bug</h1>
+
+        <p class="description">
+            Find the syntax error in the Java program below.
+            Correct the code and submit your solution.
+        </p>
+
+        <div class="code-box">
+
+<pre>public class Main {
+
+    public static void main(String[] args) {
+
+        int number = 10
+
+        System.out.println(number);
+
+    }
+}</pre>
+
+        </div>
+
+        <div class="points">
+            🏆 Reward: 10 Points
+        </div>
+
+        <label for="solution">
+            <strong>Enter your corrected code:</strong>
+        </label>
+
+        <textarea id="solution" placeholder="Write the corrected Java code here..."></textarea>
+
+        <button onclick="checkSolution()">Submit Solution</button>
+
+        <div id="message"></div>
+
+    </div>
+
+</div>
+
+<footer>
+
+    <p>© 2026 BugBounty Arena | Error Detection & Code Debugging Platform</p>
+
+</footer>
+
+<script>
+
+function checkSolution() {
+
+    const solution = document.getElementById("solution").value;
+    const message = document.getElementById("message");
+
+    if (solution.includes("int number = 10;")) {
+
+        const email = localStorage.getItem("loggedInUser");
+
+        if (!email) {
+            message.textContent = "Please login before submitting a challenge.";
+            message.style.color = "red";
+            return;
+        }
+
+        fetch("/api/points/add?email=" + encodeURIComponent(email) + "&points=10", {
+            method: "POST"
+        })
+        .then(response => response.text())
+        .then(result => {
+            message.textContent = "🎉 Correct! You found the bug and earned 10 points.";
+            message.style.color = "green";
+        })
+        .catch(error => {
+            message.textContent = "Correct solution, but points could not be added.";
+            message.style.color = "red";
+        });
+
+    } else {
+
+        message.textContent = "❌ Incorrect solution. Check the code and try again.";
+        message.style.color = "red";
+
+    }
+}
+
+</script>
+
+</body>
+</html>
