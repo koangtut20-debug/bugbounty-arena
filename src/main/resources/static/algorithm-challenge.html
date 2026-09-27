@@ -1,198 +1,137 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hard Challenge - BugBounty Arena</title>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
-            margin: 0;
-            padding: 0;
-        }
-
-        nav {
-            background: #222;
-            padding: 15px;
-            text-align: center;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 15px;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 40px auto;
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-        }
-
-        .difficulty {
-            color: #d9534f;
-            font-weight: bold;
-        }
-
-        pre {
-            background: #f1f1f1;
-            padding: 20px;
-            border-radius: 8px;
-            overflow-x: auto;
-        }
-
-        textarea {
-            width: 100%;
-            height: 220px;
-            padding: 12px;
-            font-family: monospace;
-            font-size: 15px;
-            box-sizing: border-box;
-            margin-top: 10px;
-        }
-
-        button {
-            margin-top: 15px;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 6px;
-            background: #222;
-            color: white;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        #message {
-            margin-top: 20px;
-            font-weight: bold;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            padding: 20px;
-            color: #666;
-        }
-    </style>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.7">
+  <style type="text/css">
+    body {background-color: #f1f4f6}
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px Courier; -webkit-text-stroke: #000000}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px Courier; -webkit-text-stroke: #000000; min-height: 16.0px}
+    p.p3 {margin: 0.0px 0.0px 12.0px 0.0px; font: 12.0px Times; -webkit-text-stroke: #000000}
+    span.s1 {font-kerning: none}
+  </style>
 </head>
-
 <body>
-
-<nav>
-    <a href="index.html">Home</a>
-    <a href="challenges.html">Challenges</a>
-    <a href="login.html">Login</a>
-    <a href="register.html">Register</a>
-</nav>
-
-<div class="container">
-
-    <p class="difficulty">Hard</p>
-
-    <h1>Debug the Algorithm</h1>
-
-    <p>
-        The program should find the largest number in an array.
-        Find the algorithm error and correct the code.
-    </p>
-
-    <pre>
-public class Main {
-
-    public static void main(String[] args) {
-
-        int[] numbers = {10, 25, 7, 42, 18};
-
-        int largest = 0;
-
-        for (int number : numbers) {
-
-            if (number &lt; largest) {
-                largest = number;
-            }
-        }
-
-        System.out.println("Largest: " + largest);
-
-    }
-}
-    </pre>
-
-    <h3>🏆 Reward: 30 Points</h3>
-
-    <label for="solution">
-        Enter your corrected code:
-    </label>
-
-    <textarea id="solution" placeholder="Enter your corrected code here"></textarea>
-
-    <button id="submitButton">Submit Solution</button>
-
-    <div id="message"></div>
-
-</div>
-
-<footer>
-    © 2026 BugBounty Arena | Error Detection &amp; Code Debugging Platform
-</footer>
-
-<script>
-
-document.getElementById("submitButton").addEventListener("click", function () {
-
-    const email = localStorage.getItem("loggedInUser");
-    const solution = document.getElementById("solution").value.trim();
-    const message = document.getElementById("message");
-
-    if (!email) {
-        message.textContent = "Please login before submitting a challenge.";
-        return;
-    }
-
-    if (!solution) {
-        message.textContent = "Please enter your corrected code.";
-        return;
-    }
-
-    if (!solution.includes("if (number > largest)")) {
-        message.textContent =
-            "❌ Incorrect. Check the comparison used to find the largest number.";
-        return;
-    }
-
-    fetch("/api/points/add?email=" + encodeURIComponent(email) + "&points=30", {
-        method: "POST"
-    })
-    .then(response => response.text())
-    .then(result => {
-
-        if (result === "Points added successfully") {
-            message.textContent =
-                "🎉 Correct! You fixed the algorithm error and earned 30 points.";
-        } else {
-            message.textContent =
-                "Correct solution, but points could not be saved: " + result;
-        }
-
-    })
-    .catch(error => {
-
-        console.error(error);
-
-        message.textContent =
-            "Correct solution, but there was a problem saving your points.";
-
-    });
-
-});
-
-</script>
-
+<p class="p1"><span class="s1">&lt;title&gt;Hard Challenge - BugBounty Arena&lt;/title&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;style&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>body {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>font-family: Arial, sans-serif;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>background: #f4f6f8;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>margin: 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>padding: 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>nav {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>background: #222;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>padding: 15px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>text-align: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>nav a {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>color: white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>text-decoration: none;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>margin: 0 15px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.container {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>max-width: 900px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>margin: 40px auto;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>background: white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>padding: 30px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>border-radius: 10px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.difficulty {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>color: #d9534f;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>font-weight: bold;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>pre {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>background: #f1f1f1;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>padding: 20px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>border-radius: 8px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>overflow-x: auto;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>textarea {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>width: 100%;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>height: 220px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>padding: 12px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>font-family: monospace;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>font-size: 15px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>box-sizing: border-box;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>margin-top: 10px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>button {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>margin-top: 15px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>padding: 12px 25px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>border: none;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>border-radius: 6px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>background: #222;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>color: white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>cursor: pointer;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>font-size: 16px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>button:hover {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>background: #444;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>#message {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>margin-top: 20px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>font-weight: bold;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>footer {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>text-align: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>margin-top: 40px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>padding: 20px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>color: #666;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p1"><span class="s1">&lt;/style&gt;</span></p>
+<p class="p1"><span class="s1">&lt;p class="difficulty"&gt;Hard&lt;/p&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;h1&gt;Debug the Algorithm&lt;/h1&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>The program should find the largest number in an array.</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>Find the algorithm error and correct the code.</span></p>
+<p class="p1"><span class="s1">&lt;/p&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;pre&gt;&lt;code&gt;public class Main {</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">public static void main(String[] args) {</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>int[] numbers = {10, 25, 7, 42, 18};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>int largest = 0;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>for (int number : numbers) {</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>if (number &amp;lt; largest) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>largest = number;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>System.out.println("Largest: " + largest);</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p3"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">&lt;p&gt;&lt;strong&gt;🏆 Reward: 30 Points&lt;/strong&gt;&lt;/p&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;label for="solution"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;strong&gt;Enter your corrected code:&lt;/strong&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/label&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;textarea id="solution"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>placeholder="Enter your corrected Java code here..."&gt;&lt;/textarea&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;button id="submitBtn"&gt;Submit Solution&lt;/button&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;div id="message"&gt;&lt;/div&gt;</span></p>
 </body>
 </html>
-
