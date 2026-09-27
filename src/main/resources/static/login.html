@@ -6,95 +6,76 @@
     <title>Login - BugBounty Arena</title>
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
             font-family: Arial, sans-serif;
-            background: #f4f7fb;
-            color: #1f2937;
+            margin: 0;
+            background: #f4f6f8;
+            color: #222;
         }
 
-        header {
-            background: #111827;
-            color: white;
-            padding: 20px 8%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
+        nav {
+            background: #222;
+            padding: 15px;
+            text-align: center;
         }
 
         nav a {
             color: white;
             text-decoration: none;
-            margin-left: 25px;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
         }
 
         .container {
-            min-height: 80vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 40px 20px;
-        }
-
-        .login-box {
+            width: 350px;
+            margin: 70px auto;
             background: white;
-            width: 100%;
-            max-width: 450px;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
         }
 
-        .login-box h1 {
+        h1 {
             text-align: center;
             margin-bottom: 10px;
         }
 
-        .login-box p {
+        h2 {
             text-align: center;
-            color: #6b7280;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         label {
-            display: block;
-            margin-bottom: 8px;
             font-weight: bold;
         }
 
         input {
             width: 100%;
-            padding: 13px;
-            margin-bottom: 20px;
-            border: 1px solid #d1d5db;
-            border-radius: 7px;
-            font-size: 15px;
+            padding: 10px;
+            margin-top: 8px;
+            margin-bottom: 18px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
 
         button {
             width: 100%;
-            padding: 14px;
-            background: #2563eb;
+            padding: 12px;
+            background: #222;
             color: white;
             border: none;
-            border-radius: 7px;
-            font-size: 16px;
-            font-weight: bold;
+            border-radius: 5px;
             cursor: pointer;
+            font-size: 16px;
         }
 
         button:hover {
-            background: #1d4ed8;
+            background: #444;
         }
 
         #message {
@@ -103,136 +84,109 @@
             font-weight: bold;
         }
 
-        .register-link {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .register-link a {
-            color: #2563eb;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
         footer {
-            background: #111827;
-            color: #d1d5db;
             text-align: center;
-            padding: 25px;
+            margin-top: 40px;
+            color: #666;
+            font-size: 14px;
         }
     </style>
 </head>
 
 <body>
 
-<header>
-    <div class="logo">🐛 BugBounty Arena</div>
-
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="register.html">Register</a>
-    </nav>
-</header>
+<nav>
+    <a href="/index.html">Home</a>
+    <a href="/challenges.html">Challenges</a>
+    <a href="/login.html">Login</a>
+    <a href="/register.html">Register</a>
+</nav>
 
 <div class="container">
 
-    <div class="login-box">
+    <h1>🐛 BugBounty Arena</h1>
 
-        <h1>Welcome Back</h1>
+    <h2>Login</h2>
 
-        <p>Login to continue solving debugging challenges.</p>
+    <form id="loginForm">
 
-        <form id="loginForm">
+        <label for="email">Email</label>
+        <input
+            type="email"
+            id="email"
+            placeholder="Enter your email"
+            required
+        >
 
-            <label for="email">Email Address</label>
-            <input
-                type="email"
-                id="email"
-                placeholder="Enter your email"
-                required
-            >
+        <label for="password">Password</label>
+        <input
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            required
+        >
 
-            <label for="password">Password</label>
-            <input
-                type="password"
-                id="password"
-                placeholder="Enter your password"
-                required
-            >
+        <button type="submit">Login</button>
 
-            <button type="submit">Login</button>
+    </form>
 
-        </form>
-
-        <div id="message"></div>
-
-        <div class="register-link">
-            Don't have an account?
-            <a href="register.html">Create Account</a>
-        </div>
-
-    </div>
+    <p id="message"></p>
 
 </div>
 
 <footer>
-    <p>© 2026 BugBounty Arena | Error Detection & Code Debugging Platform</p>
+    © 2026 BugBounty Arena | Error Detection & Code Debugging Platform
 </footer>
 
 <script>
 
-document.getElementById("loginForm").addEventListener("submit", async function(event) {
+document.getElementById("loginForm").addEventListener("submit", function(event) {
 
     event.preventDefault();
 
-    const email = document.getElementById("email").value;
+    const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value;
-
     const message = document.getElementById("message");
 
-    try {
+    message.textContent = "Logging in...";
 
-        const response = await fetch("/api/login", {
-
-            method: "POST",
-
-            headers: {
-                "Content-Type": "application/json"
-            },
-
-            body: JSON.stringify({
-                email: email,
-                password: password
-            })
-
-        });
-
-        const result = await response.text();
-
-        message.textContent = result;
+    fetch("/api/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            email: email,
+            password: password
+        })
+    })
+    .then(response => response.text())
+    .then(result => {
 
         if (result === "Login successful") {
 
-            message.style.color = "green";
+            localStorage.setItem("userEmail", email);
 
-            localStorage.setItem("loggedInUser", email);
+            message.textContent = "✅ Login successful!";
 
             setTimeout(function() {
-                window.location.href = "index.html";
+                window.location.href = "/index.html";
             }, 1000);
 
         } else {
 
-            message.style.color = "red";
+            message.textContent = "❌ " + result;
 
         }
 
-    } catch (error) {
+    })
+    .catch(error => {
 
-        message.textContent = "Something went wrong. Please try again.";
-        message.style.color = "red";
+        console.error(error);
 
-    }
+        message.textContent = "❌ Login failed. Please try again.";
+
+    });
 
 });
 
