@@ -1,5 +1,6 @@
 package com.example.bugbounty.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -11,7 +12,10 @@ public class User {
 
     private String name;
     private String email;
+
+    @JsonIgnore
     private String password;
+
     private int points;
 
     public User() {

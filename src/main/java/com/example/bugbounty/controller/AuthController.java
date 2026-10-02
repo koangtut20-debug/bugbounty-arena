@@ -1,8 +1,12 @@
 package com.example.bugbounty.controller;
 
 import com.example.bugbounty.model.User;
+import com.example.bugbounty.dto.LeaderboardUser;
 import com.example.bugbounty.repository.UserRepository;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -54,6 +58,18 @@ public class AuthController {
         }
 
         return existingUser.getPoints();
+    }
+
+    @GetMapping("/leaderboard")
+    public List<LeaderboardUser> getLeaderboard() {
+
+        return userRepository.findAllByOrderByPointsDesc()
+                .stream()
+                .map(user -> new LeaderboardUser(
+                        user.getName(),
+                        user.getPoints()
+                ))
+                .collect(Collectors.toList());
     }
 
     @PostMapping("/login")
