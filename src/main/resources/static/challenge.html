@@ -213,7 +213,7 @@ function checkSolution() {
 
     if (solution.includes("int number = 10;")) {
 
-        const email = localStorage.getItem("loggedInUser");
+        const email = localStorage.getItem("userEmail");
 
         if (!email) {
             message.textContent = "Please login before submitting a challenge.";
