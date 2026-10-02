@@ -81,6 +81,14 @@ public class AuthController {
             return "User not found";
         }
 
+        if (existingUser.getPassword() == null) {
+            return "Password not set for this account";
+        }
+
+        if (user.getPassword() == null) {
+            return "Password required";
+        }
+
         if (!existingUser.getPassword().equals(user.getPassword())) {
             return "Invalid password";
         }
