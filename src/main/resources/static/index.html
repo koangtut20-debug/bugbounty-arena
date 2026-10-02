@@ -216,7 +216,7 @@
 </footer>
 
 <script>
-const email = localStorage.getItem("loggedInUser");
+const email = localStorage.getItem("userEmail");
 
 if (email) {
     fetch("/api/user/points?email=" + encodeURIComponent(email))
